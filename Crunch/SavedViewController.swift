@@ -22,10 +22,12 @@ class SavedViewController: UIViewController, UITableViewDataSource, UITableViewD
         // Do any additional setup after loading the view.
     }
     
+    // start the most recently tapped circuit
     @IBAction func didTapStartCircuit(_ sender: Any) {
         circuitsModel.currentCircuit = circuitsModel.getCircuits()[chosenIndex]
     }
     
+    // return to the create vc
     @IBAction func didTapCancelButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }

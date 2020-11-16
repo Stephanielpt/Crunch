@@ -27,14 +27,17 @@ class CircuitsModel : NSObject {
         circuits.append(dc)
     }
     
+    // returns the number of circuits that a user has saved
     func numberOfSavedCircuits() -> Int {
         return circuits.count
     }
     
+    // adds a circuit to the user's saved circuits
     func addCircuit(circ: Circuit) {
         circuits.append(circ)
     }
     
+    // returns all saved circuits
     func getCircuits() -> [Circuit] {
         return circuits
     }

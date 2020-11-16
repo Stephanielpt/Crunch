@@ -30,7 +30,7 @@ class CreateViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     @IBAction func didTapAddExercise(_ sender: Any) {
-        // add the exercise
+        // check if the name or seconds input is invalid
         let exerciseName = exerciseNameTF.text ?? ""
         let exerciseDuration = exerciseDurationTF.text ?? ""
         if (exerciseName.isEmpty || exerciseDuration.isEmpty) {
@@ -41,6 +41,7 @@ class CreateViewController: UIViewController, UITableViewDelegate, UITableViewDa
             return
         }
         else {
+            // add the exercise to the circuit
             circuitInProgress.addExercise(exercise: Exercise(exName: exerciseName, exDuration: exerciseSeconds))
             circuitTableView.reloadData()
             startCircuitButton.isEnabled = true
@@ -48,6 +49,7 @@ class CreateViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // adjust total time
         totalSecs += exerciseSeconds
         let totalMinutes = (totalSecs + 30) / 60
+        // handle plural and singular minute(s)
         if (totalMinutes == 1) {
             totalTimeLabel.text = "Total time: ~ 1 minute"
         } else {
@@ -58,6 +60,7 @@ class CreateViewController: UIViewController, UITableViewDelegate, UITableViewDa
         exerciseDurationTF.text = ""
     }
     
+    // set the model's current circuit
     @IBAction func didTapStartCircuit(_ sender: Any) {
         if (circuitInProgress.numberOfExercises() > 0) {
             circuitsModel.currentCircuit = circuitInProgress
@@ -76,11 +79,13 @@ class CreateViewController: UIViewController, UITableViewDelegate, UITableViewDa
         return cell
     }
     
+    // user can tap out to dismiss the keyboard
     @IBAction func didTapBackground(_ sender: Any) {
         exerciseDurationTF.resignFirstResponder()
         exerciseNameTF.resignFirstResponder()
     }
     
+    // user can clear/reset the circuit they are building
     @IBAction func clearCircuit(_ sender: Any) {
         circuitInProgress.clearExercises()
         circuitTableView.reloadData()
